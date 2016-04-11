@@ -1,0 +1,48 @@
+***********
+登录
+路径：/public/login?isajax=1
+
+FROM DATA：
+username:username
+password:password
+
+******************
+获取设备列表
+/rbac/machine/index
+POST
+FROM DATA：
+page:1
+rows:20
+****************************************
+增加设备 请求头：
+/rbac/machine/AddMachine
+type:POST
+FORM DATA:
+MachineName: "foo"
+MachineInfo: "foo"
+返回信息
+  {
+    "info": "Success",
+    "status": true
+  }
+ 或者
+ {
+    "info": "errorinfo",
+    "status": false
+  }
+***********************************************
+
+删除设备 ：根据id
+请求头
+/rbac/machine/DelMachine
+Request Method:POST
+Form Data:
+ {Id: 7}
+************************************************
+生成授权二维码
+
+
+
+
+
+****************
