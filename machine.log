@@ -1,7 +1,0 @@
-
-2016/04/20 15:23:00 [I] 尝试删除设备%!(EXTRA string={"Id":2,"MachineNo":"fsdf","Status":1,"SiteName":"sfsdf","SiteUrl":"sfsfsa","ChargeName":"sfdsfs","ContactWay":"fsfd","Paths":"","Pid":0,"Registtime":"2016-04-20T15:21:29+08:00"})
-2016/04/20 15:23:00 [I] 删除设备成功
-2016/04/20 15:23:04 [I] 尝试删除设备%!(EXTRA string={"Id":1,"MachineNo":"","Status":2,"SiteName":"","SiteUrl":"","ChargeName":"","ContactWay":"","Paths":"","Pid":0,"Registtime":"2016-04-20T15:20:28+08:00"})
-2016/04/20 15:23:04 [I] 删除设备成功
-2016/04/20 15:52:06 [I] 尝试删除设备%!(EXTRA string={"Id":5,"MachineNo":"子设备","Status":1,"SiteName":"三十三岁搜索","SiteUrl":"三十三岁","ChargeName":"负责人","ContactWay":"三十三岁是","Paths":"","Level":0,"Pid":0,"Registtime":"2016-04-20T15:31:07+08:00"})
-2016/04/20 15:52:06 [I] 删除设备成功
