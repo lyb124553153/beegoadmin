@@ -38,6 +38,7 @@ func (this *RoleController) Index() {
 	}
 
 }
+
 func (this *RoleController) AddAndEdit() {
 	r := m.Role{}
 	if err := this.ParseForm(&r); err != nil {

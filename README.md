@@ -1,9 +1,7 @@
 ## beego admin
 
-基于beego，jquery easyui ,bootstrap的一个后台管理系统
-
-VERSION = "0.1.1"
-
+基于beego，jquery easyui ,
+16年04月22日更新
 ## 获取安装
 
 执行以下命令，就能够在你的`GOPATH/src` 目录下发现beego admin
@@ -106,7 +104,7 @@ $ go build
 ```
 首次启动需要创建数据库、初始化数据库表。
 ```bash
-$ ./hello -syncdb
+$ ./admin -syncdb
 ```
 好了，现在可以通过浏览器地址访问了[`http://localhost:8080/`](http://localhost:8080/)
 

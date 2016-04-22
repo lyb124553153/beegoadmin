@@ -117,6 +117,7 @@
     //编辑
     function editrow(){
         var row = $("#treegrid").treegrid("getSelected");
+
         if(!row){
             vac.alert("请选择要编辑的行");
             return;
@@ -126,6 +127,7 @@
     //保存
     function saverow(){
         var row = $("#treegrid").treegrid("getSelected");
+         console.log(row);
         if(!row){
             vac.alert("请选择要保存的行");
             return;

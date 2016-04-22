@@ -2,9 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>二维码</title>
+    <script type="text/javascript" src="/static/easyui/jquery-easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.qrcode.min.js"></script>
 </head>
 <body>
+<div id="output"></div>
 
+<script>
+    $(function(){
+        var permisslist = "/permiss";
+        $('#output').qrcode(permisslist);
+    })
+</script>
 </body>
 </html>

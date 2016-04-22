@@ -17,12 +17,16 @@ rows:20
 增加设备 请求头：
 /rbac/machine/AddMachine
 type:POST
-FORM DATA:
-MachineName: "foo"
-MachineInfo: "foo"
+MachineNo  Status   SiteName  	SiteUrl 	ChargeName  ContactWay  	Paths  	Level  	Pid
+
+zhu注册设备  Pid = 0 ，Paths 为空 LeveL 为1
+注册目录  Pid 设备ID PATHS 目录 Level 为2
+
+注册目录 Pid  目录ID Level  为 2
+
 返回信息
   {
-    "info": "Success",
+    "info": id,
     "status": true
   }
  或者
@@ -31,18 +35,73 @@ MachineInfo: "foo"
     "status": false
   }
 ***********************************************
-
+更新设备
+/rbac/machine/UpdateMachine
+ Status=1&Id=1
+ Status未监控字段 1为放行  2为阻止
+Id对应设备编号  
+返回信息
+  {
+    "info": "操作成功的备注信息",
+    "status": true
+  }
+ 或者
+ {
+    "info": "操作失败的错误信息",
+    "status": false
+  }
+*****************8*
 删除设备 ：根据id
 请求头
 /rbac/machine/DelMachine
 Request Method:POST
 Form Data:
  {Id: 7}
+ ******
+ 获取设备及其目录以及策略信息
+ /machine/MachineInfo
+
+ Request Method:POST
+ Form Data:
+  {Id: Id}
 ************************************************
-生成授权二维码
+生成或编辑策略
 
+url +/rbac/strategy/AddAndEdit
+Form Data：
+StrategyName=dsa&TimeLimit=dasda
 
+StrategyName 对应设备ming
+TimeLismit 策略的内容
 
 
 
 ****************
+编辑策略
+url+/rbac/strategy/AddStrategyToMachine
+Id:2
+ids:1,2
+
+Id 对应策略的ID
+ids 对应设备列表的ids
+如果比如
+Id:2
+ids:1,2
+就是把ID为2的策略添加和id为1,2的设备建立对应关系
+Id:2
+ids:1
+就是把ID为2的策略和id为1的设备建立对应关系
+××××××××××××××××
+删除策略
+/rbac/strategy/DelStrategy
+Form Data：
+Id=Id
+×××××××××
+获取设备和策略的对应关系
+/rbac/strategy/StrategyToMachineList
+
+FORMDATA:
+Id=Id&Isajax=1
+返回json
+
+×××××××××××××××

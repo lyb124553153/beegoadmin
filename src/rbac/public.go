@@ -5,6 +5,7 @@ import (
 	. "github.com/beego/admin/src"
 	m "github.com/beego/admin/src/models"
 
+	"fmt"
 )
 
 type MainController struct {
@@ -52,14 +53,17 @@ func (this *MainController) Index() {
 func (this *MainController) Login() {
 	isajax := this.GetString("isajax")
 	if isajax == "1" {
+
 		username := this.GetString("username")
 		password := this.GetString("password")
+		beego.Debug(fmt.Sprintf("登錄名:%d 密碼:%s ", username,password))
 		user, err := CheckLogin(username, password)
 		if err == nil {
 			this.SetSession("userinfo", user)
 			accesslist, _ := GetAccessList(user.Id)
 			this.SetSession("accesslist", accesslist)
-			this.Rsp(true, "登录成功")
+
+			this.Rsp(true,this.CruSession.SessionID())
 			return
 		} else {
 			this.Rsp(false, err.Error())
@@ -71,6 +75,7 @@ func (this *MainController) Login() {
 	if userinfo != nil {
 		this.Ctx.Redirect(302, "/public/index")
 	}
+	//this.Rsp(true, "登录成功")
 	this.TplName = this.GetTemplatetype() + "/public/login.tpl"
 }
 

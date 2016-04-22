@@ -11,15 +11,21 @@ import (
 
 type Machine struct {
 	Id            int64
-	MachineNo   string  `orm:"size(100)" form:"MachineNo"  valid:"Required"`
+	MachineNo   string  `orm:"size(64)" form:"MachineNo"  valid:"Required"`
 	Status        int       `orm:"default(2)" form:"Status" valid:"Range(1,2)"`
 	SiteName  string  `orm:"size(100)" form:"SiteName"  valid:"Required"`
 	SiteUrl  string  `orm:"size(100)" form:"SiteUrl"  valid:"Required"`
-	ChargeName  string  `orm:"size(100)" form:"ChargeName"  valid:"Required"`
-	ContactWay  string  `orm:"size(100)" form:"ContactWay"  valid:"Required"`
+	ChargeName  string  `orm:"size(32)" form:"ChargeName"  valid:"Required"`
+	ContactWay  string  `orm:"size(32)" form:"ContactWay"  valid:"Required"`
+	Paths  string  `orm:";size(32)" form:"Paths"  valid:"Required"`
+	Level  int     `orm:"default(1)" form:"Level"  valid:"Required"`
+	Pid    int64   `form:"Pid"  valid:"Required"`
 	Registtime    time.Time `orm:"type(datetime);auto_now_add" `
-
+	Strategy  []*Strategy   `orm:"rel(m2m)"`
 }
+
+
+
 
 func (m *Machine) TableName() string {
 	return beego.AppConfig.String("machine_table")
@@ -60,6 +66,9 @@ func InsertMachine(m *Machine) (int64, error) {
 	machine.ChargeName = m.ChargeName
 	machine.SiteUrl = m.SiteUrl
 	machine.ContactWay = m.ContactWay
+	machine.Pid = m.Pid
+	machine.Level = m.Level
+	machine.Paths = m.Paths
 	id,err :=  o.Insert(machine)
 
 	return id, err
@@ -113,4 +122,12 @@ func 	GetMachineById(id int64) (m Machine) {
 	o := orm.NewOrm()
 	o.Read(&m, "Id")
 	return m
+}
+
+
+func GetStrategyByMachineId(machineid int64) (strategys []orm.Params, count int64) {
+	o := orm.NewOrm()
+	strategy := new(Strategy)
+	count, _ = o.QueryTable(strategy).Filter("Machine__Machine__Id", machineid).Values(&strategys)
+	return strategys, count
 }

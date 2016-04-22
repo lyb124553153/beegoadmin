@@ -54,7 +54,7 @@ func Connect() {
 	switch db_type {
 	case "mysql":
 		orm.RegisterDriver("mysql", orm.DRMySQL)
-		dns = fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8", db_user, db_pass, db_host, db_port, db_name)
+		dns = fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&loc=Local", db_user, db_pass, db_host, db_port, db_name)
 		break
 	case "postgres":
 		orm.RegisterDriver("postgres", orm.DRPostgres)
@@ -162,13 +162,13 @@ func insertNodes() {
 	g := new(Group)
 	g.Id = 1
 	//nodes := make([20]Node)
-	nodes := [29]Node{
+	nodes := [38]Node{
 		{Name: "rbac", Title: "RBAC", Remark: "", Level: 1, Pid: 0, Status: 2, Group: g},
 		{Name: "node/index", Title: "Node", Remark: "", Level: 2, Pid: 1, Status: 2, Group: g},
 		{Name: "index", Title: "node list", Remark: "", Level: 3, Pid: 2, Status: 2, Group: g},
 		{Name: "AddAndEdit", Title: "add or edit", Remark: "", Level: 3, Pid: 2, Status: 2, Group: g},
 		{Name: "DelNode", Title: "del node", Remark: "", Level: 3, Pid: 2, Status: 2, Group: g},
-		{Name: "user/index", Title: "User", Remark: "", Level: 2, Pid: 1, Status: 2, Group: g},
+		{Name: "user/index", Title: "用户", Remark: "", Level: 2, Pid: 1, Status: 2, Group: g},
 		{Name: "Index", Title: "user list", Remark: "", Level: 3, Pid: 6, Status: 2, Group: g},
 		{Name: "AddUser", Title: "add user", Remark: "", Level: 3, Pid: 6, Status: 2, Group: g},
 		{Name: "UpdateUser", Title: "update user", Remark: "", Level: 3, Pid: 6, Status: 2, Group: g},
@@ -187,11 +187,22 @@ func insertNodes() {
 		{Name: "AddAccess", Title: "add accsee", Remark: "", Level: 3, Pid: 16, Status: 2, Group: g},
 		{Name: "RoleToUserList", Title: "show role to userlist", Remark: "", Level: 3, Pid: 16, Status: 2, Group: g},
 		{Name: "AddRoleToUser", Title: "add role to user", Remark: "", Level: 3, Pid: 16, Status: 2, Group: g},
-		{Name: "machine/index", Title: "Machine", Remark: "", Level: 2, Pid: 1, Status: 2, Group: g},
+
+		{Name: "machine/index", Title: "设备", Remark: "", Level: 2, Pid: 1, Status: 2, Group: g},
 		{Name: "Index", Title: "machine list", Remark: "", Level: 3, Pid: 25, Status: 2, Group: g},
-		{Name: "AddMachine", Title: "add machine", Remark: "", Level: 3, Pid: 25, Status: 2, Group: g},
+		{Name: "AddAndEdit", Title: "增加和修改设备", Remark: "", Level: 3, Pid: 25, Status: 2, Group: g},
 		{Name: "UpdateMachine", Title: "update machine", Remark: "", Level: 3, Pid:25, Status: 2, Group: g},
-		{Name: "DelMachine", Title: "del mechine", Remark: "", Level: 3, Pid: 25, Status: 2, Group: g},
+		{Name: "DelMachine", Title: "注销设备或目录", Remark: "", Level: 3, Pid: 25, Status: 2, Group: g},
+		{Name: "MachineList", Title: "MachineList", Remark: "", Level: 3, Pid: 25, Status: 2, Group: g},
+
+
+		{Name: "strategy/index", Title: "策略", Remark: "", Level: 2, Pid: 1, Status: 2, Group: g},
+		{Name: "StrategyToMachine", Title: "读取获取设备-策略", Remark: "", Level: 3, Pid: 31, Status: 2, Group: g},
+		{Name: "getlist", Title: "取策列表", Remark: "", Level: 3, Pid: 31, Status: 2, Group: g},
+		{Name: "DelStrategy", Title: "删除策略", Remark: "", Level: 3, Pid: 31, Status: 2, Group: g},
+		{Name: "index", Title: "策略", Remark: "", Level: 3, Pid: 31, Status: 2, Group: g},
+		{Name: "AddStrategyToMachine", Title: "赋予策略到设备", Remark: "", Level: 3, Pid: 31, Status: 2, Group: g},
+		{Name: "AddAndEdit", Title: "新增和编辑策略", Remark: "", Level: 3, Pid: 31, Status: 2, Group: g},
 	}
 	for _, v := range nodes {
 		n := new(Node)

@@ -38,8 +38,23 @@ func router() {
 	beego.Router("/rbac/machine/index",&rbac.MachineController{},"*:Index")
 	beego.Router("/rbac/machine/DelMachine",&rbac.MachineController{},"*:DelMachine")
 	beego.Router("/rbac/machine/UpdateMachine",&rbac.MachineController{},"*:UpdateMachine")
+	beego.Router("/rbac/machine/AddAndEdit", &rbac.MachineController{}, "*:AddAndEdit")
+	beego.Router("/rbac/machine/MachineList", &rbac.MachineController{}, "*:MachineList")
+
+	beego.Router("/rbac/strategy/AddAndEdit", &rbac.StrategyController{}, "*:AddAndEdit")
+	beego.Router("/rbac/strategy/DelStrategy", &rbac.StrategyController{}, "*:DelStrategy")
+	beego.Router("/rbac/strategy/StrategyToMachineList", &rbac.StrategyController{}, "*:StrategyToMachineList")
+	beego.Router("/rbac/strategy/AddStrategyToMachine", &rbac.StrategyController{}, "*:AddStrategyToMachine")
+	beego.Router("/rbac/strategy/Getlist", &rbac.StrategyController{}, "*:Getlist")
+	beego.Router("/rbac/strategy/index", &rbac.StrategyController{}, "*:Index")
 
 
+
+	beego.Router("/machine/AddMachine",&rbac.MachineController{},"*:AddMachine")
+	beego.Router("/machine/DelMachine",&rbac.MachineController{},"*:DelMachine")
+	beego.Router("/machine/MachineInfo",&rbac.MachineController{},"*:MachineInfo")
+
+	beego.Router("/qrcode",&rbac.MachineController{},"*:Qrcodebuild")
 	beego.Router("/permiss",&rbac.MainController{},"*:PermissRead")
 
 }

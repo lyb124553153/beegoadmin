@@ -5,6 +5,9 @@ import (
 	"github.com/astaxie/beego/logs"
 
 	"encoding/json"
+	"fmt"
+	"github.com/astaxie/beego/orm"
+	"github.com/astaxie/beego"
 )
 
 type MachineController struct {
@@ -24,6 +27,16 @@ func (this *MachineController) Index() {
 		sort = "Id"
 	}
 	machineList, count := m.GetMachinelist(page, page_size, sort)
+	for i := 0; i < len(machineList); i++ {
+		if machineList[i]["Pid"] != 0 {
+			machineList[i]["_parentId"] = machineList[i]["Pid"]
+		} else {
+			machineList[i]["state"] = "closed"
+		}
+	}
+	if len(machineList) < 1 {
+		machineList = []orm.Params{}
+	}
 	if this.IsAjax() {
 		this.Data["json"] = &map[string]interface{}{"total": count, "rows": &machineList}
 		this.ServeJSON()
@@ -54,7 +67,8 @@ func (this *MachineController) AddMachine() {
 		ujon,_ := json.Marshal(u)
 		log.Info("注册设备",string(ujon))
 		log.Close()
-		this.Rsp(true, "Success")
+		str1 := fmt.Sprintf("%d", id)
+		this.Rsp(true, str1)
 		return
 	} else {
 		this.Rsp(false, err.Error())
@@ -120,3 +134,77 @@ func(this *MachineController) UpdateMachine(){
 	}
 	log.Close()
 }
+
+//根据ID获取设备（或目录）信息以及其对应的策略
+
+func(this *MachineController) MachineInfo(){
+	Id, _ := this.GetInt64("Id")
+	machine := m.GetMachineById(Id)
+	strategys, count := m.GetStrategyByMachineId(Id)
+	beego.Debug(strategys)
+	if (count > 0){
+		this.Data["json"] =&map[string]interface{}{"machine": &machine, "strategys": &strategys}
+	}else {
+
+		this.Data["json"] = &machine
+	}
+	this.ServeJSON()
+	return
+}
+
+
+func (this *MachineController) AddAndEdit() {
+	machine := m.Machine{}
+	if err := this.ParseForm(&machine); err != nil {
+		//handle error
+		this.Rsp(false, err.Error())
+		return
+	}
+	var id int64
+	var err error
+	Nid, _ := this.GetInt64("Id")
+	if Nid > 0 {
+		id, err = m.UpdateMachine(&machine)
+	} else {
+		id, err = m.InsertMachine(&machine)
+	}
+	if err == nil && id > 0 {
+		str1 := fmt.Sprintf("%d", id)
+		this.Rsp(true, str1)
+		return
+	} else {
+		this.Rsp(false, err.Error())
+		return
+	}
+
+}
+
+func (this *MachineController) MachineList() {
+	page, _ := this.GetInt64("page")
+	page_size, _ := this.GetInt64("rows")
+	sort := this.GetString("sort")
+	order := this.GetString("order")
+	if len(order) > 0 {
+		if order == "desc" {
+			sort = "-" + sort
+		}
+	} else {
+		sort = "Id"
+	}
+	machineList, count := m.GetMachinelist(page, page_size, sort)
+	for i := 0; i < len(machineList); i++ {
+		if machineList[i]["Pid"] != 0 {
+			machineList[i]["_parentId"] = machineList[i]["Pid"]
+		} else {
+			machineList[i]["state"] = "closed"
+		}
+	}
+	if len(machineList) < 1 {
+		machineList = []orm.Params{}
+	}
+
+	this.Data["json"] = &map[string]interface{}{"total": count, "rows": &machineList}
+	this.ServeJSON()
+
+}
+

@@ -52,7 +52,7 @@ func AccessRegister() {
 
 		}
 	}
-	beego.InsertFilter("/*", beego.BeforeRouter, Check)
+	beego.InsertFilter("/rbac/*", beego.BeforeRouter, Check)
 }
 
 //Determine whether need to verify
@@ -150,7 +150,11 @@ func GetAccessList(uid int64) (map[string]bool, error) {
 
 //check login
 func CheckLogin(username string, password string) (user m.User, err error) {
+	fmt.Println(username)
 	user = m.GetUserByUsername(username)
+	fmt.Println(user.Id)
+	fmt.Println(user.Nickname)
+	fmt.Println(user.Password)
 	if user.Id == 0 {
 		return user, errors.New("用户不存在")
 	}
