@@ -2,39 +2,7 @@
 
 基于beego，jquery easyui ,
 16年04月22日更新
-## 获取安装
-
-执行以下命令，就能够在你的`GOPATH/src` 目录下发现beego admin
-```bash
-$ go get github.com/beego/admin
-```
-
-##初次使用
-
-###创建应用
-首先,使用bee工具创建一个应用程序，参考[`http://beego.me/quickstart`](beego的入门)
-```
-$ bee new hello
-```
-创建成功以后，你能得到一个名叫hello的应用程序，
-现在开始可以使用它了。找到到刚刚新建的程序`hello/routers/router.go`这个文件
-```go
-import (
-	"hello/controllers" 		//自身业务包
-	"github.com/astaxie/beego"  //beego 包
-	"github.com/beego/admin"  //admin 包
-)
-
-```
-引入admin代码，再`init`函数中使用它
-```go
-func init() {
-	admin.Run()
-	beego.Router("/", &controllers.MainController{})
-}
-```
-###配置文件
-
+#####
 数据库目前仅支持MySQL,PostgreSQL,sqlite3,后续会添加更多的数据库支持。
 
 数据库的配置信息需要填写，程序会根据配置自动建库
